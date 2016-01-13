@@ -2,12 +2,21 @@
   margin: 15px 10px;
 }
 
+<<<<<<< HEAD
 .redButton{
 	color: red;
 }
 
 .blueButton{
 	color: gray;
+=======
+.removeButton {
+	color: red;
+}
+
+.viewDetailButton {
+	color: blue;
+>>>>>>> f5c4ec36970a6a4f6297fed033a3737f89cf11e9
 }
 
 .bottomMargin {
