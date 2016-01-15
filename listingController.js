@@ -1,5 +1,5 @@
-angular.module('listings').controller('ListingsController', ['$scope', 'Listings', 
-  function($scope, Listings) {
+angular.module('listings').controller('ListingsController', ['$scope', 'Listings', '$timeout',
+  function($scope, Listings, $timeout) {
     $scope.listings = Listings;
     $scope.searchText = '';
     $scope.detailedInfo = undefined;
@@ -29,12 +29,45 @@ angular.module('listings').controller('ListingsController', ['$scope', 'Listings
             'address': ''
       }
       $scope.showNewListingForm=false;
+      $scope.colorRows();
     };
-    $scope.deleteListing = function(index) {
-      $scope.listings.splice(index, 1);
+
+    $scope.colorRows = function(index) {
+    	$timeout(function() {
+			var row = document.getElementById('listingRow-' + index);
+			var rowChildren = document.getElementById('listingRow-' + index).childNodes;
+			var rowType = index % 2;
+			if (rowType === 0) {
+				row.setAttribute('style', 'background-color: #8ebebc');
+			} else {
+				row.setAttribute('style', 'background-color: #de9554');  			
+    		}
+    	}, 0);
     };
-    $scope.showDetails = function(index) {
-      $scope.detailedInfo = $scope.listings[index];
+
+    $scope.getBuildingNumber = function(buildingCode) {
+    	for (var index in $scope.listings) {
+    		if ($scope.listings[index].code === buildingCode) {
+    			return parseInt(index) + 1;
+    		}
+    	}
+    };
+
+    $scope.deleteListing = function(buildingCode) {
+    	for (var index in $scope.listings) {
+    		if ($scope.listings[index].code === buildingCode) {
+    			$scope.listings.splice(index, 1);
+    			return;
+    		}
+    	}
+    };
+    $scope.showDetails = function(buildingCode) {
+    	for (var index in $scope.listings) {
+			if ($scope.listings[index].code === buildingCode) {
+				$scope.detailedInfo = $scope.listings[index];
+				return;
+			}
+		}
     };
   }
 ]);

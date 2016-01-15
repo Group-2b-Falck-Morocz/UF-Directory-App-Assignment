@@ -7,7 +7,7 @@
 }
 
 .blueButton{
-	color: gray;
+	color: blue;
 }
 
 .bottomMargin {
@@ -18,3 +18,38 @@
   max-height: 400px;
   overflow: auto;
 }
+
+.background-orange {
+	background-color: #ff8c1a;
+}
+
+.background-blue {
+	background-color: #3366ff;
+}
+
+.white {
+	color: #ffffff;
+}
+
+.btn-warning {
+	color: #000000;
+	background: #de9554;
+}
+
+.page-background {
+	background-color: #436f6d;
+}
+
+.btn-primary {
+	color: #000000;
+	background: #8ebebc;
+}
+
+.black-text {
+	color: black;
+}
+
+.left-margin {
+	margin-left: 20px;
+}
+
