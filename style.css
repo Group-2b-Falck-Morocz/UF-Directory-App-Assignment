@@ -10,6 +10,10 @@
 	color: blue;
 }
 
+.float-right {
+	float: right;
+}
+
 .bottomMargin {
 	margin-bottom: 5px;
 }
@@ -53,3 +57,31 @@
 	margin-left: 20px;
 }
 
+.container-fluid {
+	background-color: #436f6d;
+	margin: 0px auto;
+	padding-right:24px;
+	padding-left:24px;
+}
+
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+body {
+    margin: 0 0 100px; /* bottom = footer height */
+}
+footer {
+	background-color: #000000;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 100px;
+    width: 100%;
+}
+
+.center {
+    margin: auto;
+    width: 50%;
+}
