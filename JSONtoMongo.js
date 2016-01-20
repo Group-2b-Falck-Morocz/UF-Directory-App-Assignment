@@ -7,17 +7,47 @@ var fs = require('fs'),
     mongoose = require('mongoose'), 
     Schema = mongoose.Schema, 
     Listing = require('./ListingSchema.js'), 
-    config = require('./config');
+    config = require('./config.js'),
+    async = require('async'),
+    listingsData = '';
 
-/* Connect to your database */
+function validateFields(listingJSON){
+   if (listingJSON.coordinates === undefined) {
+    listingJSON.coordinates = {};
+    listingJSON.coordinates.latitude = 0;
+    listingJSON.coordinates.longitude = 0;
+   } 
+   if (listingJSON.address === undefined) {
+    listingJSON.address = '';
+   }
 
-/* 
-  Instantiate a mongoose model for each listing object in the JSON file, 
-  and then save it to your Mongo database 
- */
+   return listingJSON;
+}
 
 
-/* 
-  Once you've written + run the script, check out your MongoLab database to ensure that 
-  it saved everything correctly. 
- */
+mongoose.connect(config.db.uri);
+mongoose.connection.on('connected', function() {
+    listingsData = fs.readFileSync('./listings.json', 'utf-8');
+    listingsData = JSON.parse(listingsData);
+    var entries = listingsData.entries;
+    async.eachLimit(entries, 10, function(entry, done) {
+      console.log('Performing operation for: ' + JSON.stringify(entry) );
+      entry = validateFields(entry);
+      var currListing = new Listing({
+        code: entry.code,
+        name: entry.name,
+        coordinates: {
+          latitude: parseInt(entry.coordinates.latitude, 10), 
+          longitude: parseInt(entry.coordinates.longitude, 10)
+        },
+        address: entry.address
+      });
+      currListing.save(done);
+    }, function(err) {
+      if(err) {
+        console.log(err);
+      } else {
+        console.log('Saved successfully');
+      }
+    });
+});
