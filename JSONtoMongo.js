@@ -37,8 +37,8 @@ mongoose.connection.on('connected', function() {
         code: entry.code,
         name: entry.name,
         coordinates: {
-          latitude: parseInt(entry.coordinates.latitude, 10), 
-          longitude: parseInt(entry.coordinates.longitude, 10)
+          latitude: entry.coordinates.latitude, 
+          longitude: entry.coordinates.longitude
         },
         address: entry.address
       });
