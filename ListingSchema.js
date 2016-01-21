@@ -19,7 +19,7 @@ var listingSchema = new Schema({
 listingSchema.pre('save', function(next) {
   var date = new Date();
 
-  if (this.created_at !== null) {
+  if (this.created_at === null) {
   	this.created_at = date;
   } else {
   	this.updated_at = date;
